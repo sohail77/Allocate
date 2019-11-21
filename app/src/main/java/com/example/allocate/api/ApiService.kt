@@ -2,6 +2,7 @@ package com.example.allocate.api
 
 import com.example.allocate.model.AuthenticationModel
 import com.example.allocate.model.Hospital
+import com.example.allocate.model.LocationModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,7 +33,7 @@ interface ApiService {
             Call<AuthenticationModel>
 
     @POST(HOSPITAL_URL)
-    fun getHospitals(@Header("Content-Type") content: String,@Header("Authorization") auth: String):
+    fun getHospitals(@Header("Content-Type") content: String,@Header("Authorization") auth: String, @Body body: LocationModel):
             Call<List<Hospital>>
 }
 

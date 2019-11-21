@@ -22,14 +22,14 @@
             android:id="@+id/animation_view"
             android:layout_width="0dp"
             android:layout_height="300dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="43dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/usernameTxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
+            app:layout_constraintVertical_bias="0.49"
 
+            app:lottie_autoPlay="true"
             app:lottie_fileName="bed.json"
             app:lottie_loop="true" />
 
@@ -39,8 +39,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
             android:hint="Username"
             android:textColorHint="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/passwordTxt"
@@ -62,7 +63,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="43dp"
+            android:layout_marginBottom="16dp"
             android:hint="Password"
             android:textColorHint="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/loginBtn"
@@ -81,14 +82,13 @@
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="200dp"
+            android:layout_marginTop="50dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:onClick="@{() -> loginVM.login()}"
             android:text="Login"
             android:textColor="@android:color/white"
             app:cornerRadius="30dp"
             app:icon="@drawable/login"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
@@ -100,8 +100,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn"
-            app:layout_constraintVertical_bias="0.13999999" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

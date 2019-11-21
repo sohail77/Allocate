@@ -33,8 +33,10 @@ class LoginFragment : Fragment() {
             })
             view.isLoading.observe(this, Observer { isLoading ->
                 if(isLoading) {
+                    binding.loginBtn.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }else {
+                    binding.loginBtn.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                 }
             })

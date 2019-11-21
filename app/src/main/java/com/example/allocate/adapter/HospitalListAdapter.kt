@@ -25,7 +25,7 @@ class HospitalListAdapter (context: Context) : RecyclerView.Adapter<HospitalList
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.hospitalName.text = hospitalList.get(position).name
-        holder.addr.text = "6967 Bayers rd"
+        holder.addr.text = hospitalList.get(position).address
     }
 
     fun setUpList(list: List<Hospital>) {

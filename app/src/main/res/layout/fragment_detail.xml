@@ -18,10 +18,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/mainCard"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:transitionName="mainCardTransition"
             app:cardElevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/hospital_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,18 +38,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="44dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="33dp"
-                    android:textColor="@android:color/white"
-                    android:textAlignment="center"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
                     android:text="@{detailVM.hospitalName}"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/addr_txt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.45" />
 
                 <TextView
                     android:id="@+id/addr_txt"
@@ -57,9 +60,38 @@
                     android:text="6967 Bayers Rd"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/waiting_txt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/hospital_name_txt" />
+
+                <TextView
+                    android:id="@+id/waiting_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@{@string/Waiting(detailVM.waitingtime)}"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addr_txt" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginStart="8dp"
+                    android:id="@+id/heart_animation"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/waiting_txt"
+                    app:lottie_fileName="heart.json"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,7 +105,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             app:adapter="@{detailVM.getHospitalAdapter()}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainCard" />

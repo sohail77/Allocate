@@ -7,9 +7,13 @@ data class Hospital(
 
     val name: String,
 
+    val address: String,
+
     @SerializedName("hlat")
     val latitude: Double,
 
     @SerializedName("hlong")
-    val longitude: Double
+    val longitude: Double,
+
+    val waitingTime: Double
 )
