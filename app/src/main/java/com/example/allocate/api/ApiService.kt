@@ -3,15 +3,13 @@ package com.example.allocate.api
 import com.example.allocate.model.AuthenticationModel
 import com.example.allocate.model.Hospital
 import com.example.allocate.model.LocationModel
+import com.example.allocate.model.TransferModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.POST
 import okhttp3.OkHttpClient
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import retrofit2.http.Header
-import retrofit2.http.Headers
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 
@@ -35,6 +33,14 @@ interface ApiService {
     @POST(HOSPITAL_URL)
     fun getHospitals(@Header("Content-Type") content: String,@Header("Authorization") auth: String, @Body body: LocationModel):
             Call<List<Hospital>>
+
+    @GET(TRANSFER_CHECK_URL+ "/{input}")
+    fun getTransferData(@Path("input") input: String,@Header("Authorization") auth: String):
+            Call<TransferModel>
+
+    @POST(TRACK + "{input}")
+    fun track(@Path("input") input: String,@Header("Content-Type") content: String,@Header("Authorization") auth: String, @Body body: LocationModel):
+            Call<Any>
 }
 
 object HospitalApi {

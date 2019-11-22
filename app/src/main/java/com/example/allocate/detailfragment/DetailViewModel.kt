@@ -6,19 +6,11 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.android.volley.AuthFailureError
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.example.allocate.ObservableViewModel
-import com.example.allocate.adapter.HospitalListAdapter
 import com.example.allocate.api.*
 import com.example.allocate.location.LocationListener
 import com.example.allocate.model.Hospital
 import com.example.allocate.model.LocationModel
-import com.google.gson.GsonBuilder
-import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 
@@ -32,13 +24,11 @@ class DetailViewModel (application: Application) : ObservableViewModel(applicati
     val isDataFetched = MutableLiveData<Boolean>()
 
     private var isRequestMade = false
-    var adapter: HospitalListAdapter
     var locationUpdates = LocationListener(application)
     private lateinit var location: LocationModel
 
     init {
         sharedPreferences = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)
-        adapter = HospitalListAdapter(context)
         isDataFetched.value = false
     }
 
@@ -70,18 +60,11 @@ class DetailViewModel (application: Application) : ObservableViewModel(applicati
                 hospitalName.value = list?.get(0)?.name
                 waitingtime.value = list?.get(0)?.waitingTime.toString()
                 isDataFetched.value = true
-               Log.e("Hello",list.toString())
             }
         })
 
     }
 
-    fun getHospitalAdapter() = adapter
-
-    fun setHospitalAdapter(list: List<Hospital>) {
-        adapter.setUpList(list)
-        adapter.notifyDataSetChanged()
-    }
 
 
 }

@@ -83,12 +83,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:onClick="@{() -> loginVM.login()}"
             android:text="Login"
             android:textColor="@android:color/white"
             app:cornerRadius="30dp"
-            app:icon="@drawable/login"
+            app:icon="@drawable/sign_in"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />

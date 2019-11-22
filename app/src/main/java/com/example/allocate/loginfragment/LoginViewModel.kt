@@ -69,11 +69,16 @@ class LoginViewModel(application: Application) : ObservableViewModel(application
             }
 
             override fun onResponse(call: Call<AuthenticationModel>, response: retrofit2.Response<AuthenticationModel>) {
-                val model = response.body()
-                val tokenData = model?.token
-                token.value = tokenData
-                sharedPreferences.edit().putString(BEARER, tokenData).apply()
-                isLoading.value = false
+                if (response.code() == 401 || response.code() == 402) {
+                    Toast.makeText(context,"Invalid Credentials", Toast.LENGTH_LONG).show()
+                    isLoading.value = false
+                }else {
+                    val model = response.body()
+                    val tokenData = model?.token
+                    token.value = tokenData
+                    sharedPreferences.edit().putString(BEARER, tokenData).apply()
+                    isLoading.value = false
+                }
             }
         })
 
