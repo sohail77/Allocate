@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TransferViewModel (application: Application) : ObservableViewModel(application) {
+class TransferViewModel(application: Application) : ObservableViewModel(application) {
 
 
     private var sharedPreferences: SharedPreferences
@@ -29,10 +29,10 @@ class TransferViewModel (application: Application) : ObservableViewModel(applica
         isLoaded.value = true
     }
 
-    fun getLocation () = locationUpdates
+    fun getLocation() = locationUpdates
 
     fun setLocation(lat: Double, lon: Double) {
-        location = LocationModel(lat,lon)
+        location = LocationModel(lat, lon)
         makeRequest()
     }
 
@@ -41,8 +41,11 @@ class TransferViewModel (application: Application) : ObservableViewModel(applica
     }
 
     fun makeRequest() {
-        HospitalApi.retrofitService.track(transferId,"application/json","Bearer " + sharedPreferences.getString(
-            BEARER,""),location).enqueue(object : Callback<Any> {
+        HospitalApi.retrofitService.track(
+            transferId, "application/json", "Bearer " + sharedPreferences.getString(
+                BEARER, ""
+            ), location
+        ).enqueue(object : Callback<Any> {
             override fun onFailure(call: Call<Any>, t: Throwable) {
             }
 

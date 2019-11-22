@@ -2,16 +2,17 @@ package com.example.allocate
 
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 
 /**
  * An [Observable] [ViewModel] for Data Binding.
  */
-open class ObservableViewModel(application: Application) : AndroidViewModel(application), Observable {
+open class ObservableViewModel(application: Application) : AndroidViewModel(application),
+    Observable {
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 

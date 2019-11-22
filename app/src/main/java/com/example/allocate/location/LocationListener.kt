@@ -10,7 +10,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 
-class LocationListener (context: Context) : LiveData<LocationModel> () {
+class LocationListener(context: Context) : LiveData<LocationModel>() {
 
     private var fusedLocation = LocationServices.getFusedLocationProviderClient(context)
 
@@ -46,6 +46,7 @@ class LocationListener (context: Context) : LiveData<LocationModel> () {
             null
         )
     }
+
     override fun onActive() {
         super.onActive()
         fusedLocation.lastLocation.addOnSuccessListener { location ->

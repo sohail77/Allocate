@@ -1,12 +1,11 @@
 package com.example.allocate.loginfragment
 
 
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -24,18 +23,18 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.loginVM = ViewModelProviders.of(this).get(LoginViewModel::class.java).also { view ->
             view.token.observe(this@LoginFragment, Observer { token ->
-                if(token.isNotEmpty()) {
+                if (token.isNotEmpty()) {
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             })
             view.isLoading.observe(this, Observer { isLoading ->
-                if(isLoading) {
+                if (isLoading) {
                     binding.loginBtn.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
-                }else {
+                } else {
                     binding.loginBtn.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                 }

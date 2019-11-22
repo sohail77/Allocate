@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +13,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isNotEmpty
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.allocate.R
@@ -31,11 +30,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-
 const val NAME = "name"
 const val ADDR = "addr"
 const val PERSON = "person"
 const val ID = "id"
+
 class HomeFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -58,29 +57,38 @@ class HomeFragment : Fragment() {
 
         pickupCard.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                pickupCard to "mainCardTransition")
-            findNavController().navigate(R.id.action_homeFragment_to_detailFragment,null,null, extras) }
+                pickupCard to "mainCardTransition"
+            )
+            findNavController().navigate(
+                R.id.action_homeFragment_to_detailFragment,
+                null,
+                null,
+                extras
+            )
+        }
 
         transfer_card.setOnClickListener {
             bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
         start_btn.setOnClickListener {
-                progressBarInSheet.visibility = View.VISIBLE
-                makeRequest()
+            progressBarInSheet.visibility = View.VISIBLE
+            makeRequest()
         }
-
 
 
     }
 
     fun makeRequest() {
         if (search_bar_input.isNotEmpty()) {
-            HospitalApi.retrofitService.getTransferData(search_bar_input.editText?.text.toString(),"Bearer " + sharedPreferences.getString(
-                BEARER,""))
+            HospitalApi.retrofitService.getTransferData(
+                search_bar_input.editText?.text.toString(), "Bearer " + sharedPreferences.getString(
+                    BEARER, ""
+                )
+            )
                 .enqueue(object : Callback<TransferModel> {
                     override fun onFailure(call: Call<TransferModel>, t: Throwable) {
-                        Toast.makeText(context,"Invalid Transfer ID", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Invalid Transfer ID", Toast.LENGTH_LONG).show()
                         progressBarInSheet.visibility = View.GONE
                     }
 
@@ -88,22 +96,29 @@ class HomeFragment : Fragment() {
                         call: Call<TransferModel>,
                         response: Response<TransferModel>
                     ) {
-                        if (response.body()!=null){
+                        if (response.body() != null) {
                             progressBarInSheet.visibility = View.GONE
                             val extras = FragmentNavigatorExtras(
-                                start_btn to "transferDetailTransition")
-                            findNavController().navigate(R.id.action_homeFragment_to_transferFragment,
-                                bundleOf(NAME to response.body()?.toHospital, ADDR to response.body()?.address,
-                                    PERSON to response.body()?.patientName,ID to response.body()?.transferId),
-                                null, extras)
-                        }else {
-                            Toast.makeText(context,"Invalid Transfer ID", Toast.LENGTH_LONG).show()
+                                start_btn to "transferDetailTransition"
+                            )
+                            findNavController().navigate(
+                                R.id.action_homeFragment_to_transferFragment,
+                                bundleOf(
+                                    NAME to response.body()?.toHospital,
+                                    ADDR to response.body()?.address,
+                                    PERSON to response.body()?.patientName,
+                                    ID to response.body()?.transferId
+                                ),
+                                null, extras
+                            )
+                        } else {
+                            Toast.makeText(context, "Invalid Transfer ID", Toast.LENGTH_LONG).show()
                             progressBarInSheet.visibility = View.GONE
                         }
                     }
                 })
-        }else{
-            Toast.makeText(context,"Enter the Transfer ID", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, "Enter the Transfer ID", Toast.LENGTH_LONG).show()
             progressBarInSheet.visibility = View.GONE
 
         }
@@ -115,7 +130,7 @@ class HomeFragment : Fragment() {
     }
 
     fun startLocationAction() {
-        if(!isPermissionsGranted()) getPermission()
+        if (!isPermissionsGranted()) getPermission()
     }
 
     private fun isPermissionsGranted() =
@@ -133,7 +148,10 @@ class HomeFragment : Fragment() {
         activity?.let {
             ActivityCompat.requestPermissions(
                 it,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ),
                 LOCATION_CODE
             )
         }

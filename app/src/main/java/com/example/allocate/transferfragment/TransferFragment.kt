@@ -4,18 +4,17 @@ package com.example.allocate.transferfragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
-
 import com.example.allocate.R
 import com.example.allocate.databinding.FragmentTransferBinding
 import com.example.allocate.homefragment.ADDR
@@ -33,19 +32,21 @@ class TransferFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val transition = TransitionInflater.from(this.activity).inflateTransition(android.R.transition.move)
+        val transition =
+            TransitionInflater.from(this.activity).inflateTransition(android.R.transition.move)
 
         sharedElementEnterTransition = ChangeBounds().apply {
             enterTransition = transition
         }
 
-        binding = FragmentTransferBinding.inflate(inflater,container,false)
-        binding.transferVM = ViewModelProviders.of(this).get(TransferViewModel::class.java).also {view ->
-            view.isLoaded.observe(this, Observer {
-                view.setTransferID(transfer_id)
-            })
+        binding = FragmentTransferBinding.inflate(inflater, container, false)
+        binding.transferVM =
+            ViewModelProviders.of(this).get(TransferViewModel::class.java).also { view ->
+                view.isLoaded.observe(this, Observer {
+                    view.setTransferID(transfer_id)
+                })
 
-        }
+            }
 
         binding.backBtn.setOnClickListener { findNavController().navigate(R.id.action_transferFragment_to_homeFragment) }
         // Inflate the layout for this fragment
@@ -68,7 +69,11 @@ class TransferFragment : Fragment() {
     }
 
     fun startLocationAction() {
-        if(isPermissionsGranted()) startUpdating() else Toast.makeText(context,"Please grant location permission",Toast.LENGTH_LONG).show()
+        if (isPermissionsGranted()) startUpdating() else Toast.makeText(
+            context,
+            "Please grant location permission",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun isPermissionsGranted() =
@@ -84,10 +89,9 @@ class TransferFragment : Fragment() {
 
     fun startUpdating() {
         binding.transferVM?.getLocation()?.observe(this, Observer {
-            binding.transferVM?.setLocation(it.latitude,it.longitude)
+            binding.transferVM?.setLocation(it.latitude, it.longitude)
         })
     }
-
 
 
 }

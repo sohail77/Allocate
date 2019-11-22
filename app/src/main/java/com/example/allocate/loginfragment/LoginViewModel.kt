@@ -8,7 +8,9 @@ import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
 import com.example.allocate.BR
 import com.example.allocate.ObservableViewModel
-import com.example.allocate.api.*
+import com.example.allocate.api.BEARER
+import com.example.allocate.api.HospitalApi
+import com.example.allocate.api.SHAREDPREF_NAME
 import com.example.allocate.model.AuthenticationModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,43 +38,44 @@ class LoginViewModel(application: Application) : ObservableViewModel(application
         }
 
 
-
     init {
         sharedPreferences = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE)
-        token.value = sharedPreferences.getString(BEARER,"")
+        token.value = sharedPreferences.getString(BEARER, "")
         isLoading.value = false
     }
 
 
-
     fun login() {
-        if(userNameField.isNotEmpty() && passwordField.isNotEmpty()) {
+        if (userNameField.isNotEmpty() && passwordField.isNotEmpty()) {
 
-            val params = HashMap<String,String>()
+            val params = HashMap<String, String>()
             params["username"] = userNameField
             params["password"] = passwordField
             makeRequest(params)
-        }else {
-            Toast.makeText(context,"Fields cannot be empty", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show()
         }
 
     }
 
-    fun makeRequest(obj: HashMap<String,String>) {
+    fun makeRequest(obj: HashMap<String, String>) {
         isLoading.value = true
 
         HospitalApi.retrofitService.login(obj).enqueue(object : Callback<AuthenticationModel> {
             override fun onFailure(call: Call<AuthenticationModel>, t: Throwable) {
-                Toast.makeText(context,"Invalid Credentials", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_LONG).show()
                 isLoading.value = false
 
             }
 
-            override fun onResponse(call: Call<AuthenticationModel>, response: retrofit2.Response<AuthenticationModel>) {
+            override fun onResponse(
+                call: Call<AuthenticationModel>,
+                response: retrofit2.Response<AuthenticationModel>
+            ) {
                 if (response.code() == 401 || response.code() == 402) {
-                    Toast.makeText(context,"Invalid Credentials", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_LONG).show()
                     isLoading.value = false
-                }else {
+                } else {
                     val model = response.body()
                     val tokenData = model?.token
                     token.value = tokenData
