@@ -38,7 +38,7 @@ interface ApiService {
     fun getTransferData(@Path("input") input: String, @Header("Authorization") auth: String):
             Call<TransferModel>
 
-    @POST(TRACK + "{input}")
+    @POST(TRACK + "/{input}")
     fun track(@Path("input") input: String, @Header("Content-Type") content: String, @Header("Authorization") auth: String, @Body body: LocationModel):
             Call<Any>
 }

@@ -52,6 +52,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text="@={loginVM.userNameField}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,6 +75,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:inputType="textPassword"
                 android:text="@={loginVM.passwordField}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -82,6 +84,8 @@
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
             android:layout_marginTop="50dp"
             android:onClick="@{() -> loginVM.login()}"
             android:text="Login"

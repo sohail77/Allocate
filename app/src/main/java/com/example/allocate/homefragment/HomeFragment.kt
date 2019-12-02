@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
     }
 
     fun makeRequest() {
-        if (search_bar_input.isNotEmpty()) {
+        if (search_bar_input.isNotEmpty() && !search_bar_input.editText?.text.toString().equals("")) {
             HospitalApi.retrofitService.getTransferData(
                 search_bar_input.editText?.text.toString(), "Bearer " + sharedPreferences.getString(
                     BEARER, ""
