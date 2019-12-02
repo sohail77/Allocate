@@ -82,7 +82,6 @@ class DetailFragment : Fragment() {
     fun startUpdating() {
         binding.detailVM?.getLocation()?.observe(this, Observer {
             binding.detailVM?.setLocation(it.latitude, it.longitude)
-
         })
     }
 
