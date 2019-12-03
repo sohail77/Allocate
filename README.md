@@ -27,7 +27,7 @@ This application was designed with scalability in mind. Since the calculations r
 The main concern that we currently have in-relation to scalability is, due to the time constraint we coudln't implement a backup server but in future if we decided to implement a back up server, we should be able to accomplish it by modifying the endpoints. 
 
 ## Security
-We were focused on maintainig good security standards while developing this application. This app doesn't require any api keys for any specific services. The application doesn't access any "extra" sensor permissions from the user.
+We were focused on maintainig good security standards while developing this application. This app doesn't require any api keys for any specific services. The application doesn't access any "extra" sensor permissions from the user. Also the Rest APIs are secured by JWT. Every API calls(except the login) requires a valid token in the authorization header. 
 
 ## Analytics
 We currently are not recording any analytics from the user. This is one of the furture scope of our application. In future we are still on-the-fence, as to whether we should use Firebase analytics or Google Analystics sdk for Android? Up until now we relied on the Questionaire to make changes in the application but Analystics will be an important addition and a good in-sight provider for us in the future. 
